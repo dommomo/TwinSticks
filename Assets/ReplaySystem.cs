@@ -7,17 +7,26 @@ public class ReplaySystem : MonoBehaviour
     private const int bufferFrames = 100;
     private MyKeyFrame[] myKeyFrames = new MyKeyFrame[bufferFrames];
     private Rigidbody rigidBody;
+    private GameManager gameManager;
 
     // Use this for initialization
     void Start ()
     {
         rigidBody = GetComponent<Rigidbody>();
+        gameManager = GameObject.FindObjectOfType<GameManager>();
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        Record();
+        if (gameManager.recording)
+        { 
+            Record();
+        }
+        else
+        {
+            Playback();
+        }
     }
 
     void Playback()
